@@ -116,7 +116,7 @@ class DeepSeekLLM:
     def __init__(self):
         from openai import OpenAI
         self.client = OpenAI(
-            api_key=os.environ.get("DEEPSEEK_API_KEY", "REDACTED"),
+            api_key=os.environ["DEEPSEEK_API_KEY"],
             base_url="https://api.deepseek.com",
         )
         self.model = os.environ.get("DEEPSEEK_EXEC_MODEL", "deepseek-v4-flash")

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>龙文凭 — AI Agent · 数据分析 · 全栈工具</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #08080F; --bg2: #111118; --bg3: #1A1A24; --bg4: #222230;
+  --accent: #6C5CE7; --accent2: #A29BFE; --teal: #00CEC9; --warm: #FD79A8;
+  --text: #E4E4EC; --text2: #9898B0; --text3: #606078;
+  --border: #222230; --radius: 12px;
+  --font: 'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* Hero */
+.hero{text-align:center;padding:100px 0 60px;position:relative}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(108,92,231,.12) 0%,transparent 70%);pointer-events:none}
+.hero h1{font-size:52px;font-weight:700;background:linear-gradient(135deg,var(--accent2),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+.hero .subtitle{font-size:20px;color:var(--text2);margin-bottom:8px}
+.hero .tags{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.hero .tags span{background:var(--bg3);border:1px solid var(--border);padding:6px 16px;border-radius:20px;font-size:13px;color:var(--text2)}
+
+/* Section */
+.section{padding:48px 0}
+.section-title{font-size:28px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.section-subtitle{font-size:15px;color:var(--text3);margin-bottom:32px}
+
+/* Stats Row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:32px 0}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center}
+.stat-card .num{font-size:36px;font-weight:700;color:var(--accent2)}
+.stat-card .label{font-size:13px;color:var(--text2);margin-top:4px}
+
+/* Project Card */
+.project{margin-bottom:40px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.project-header{padding:32px 36px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.project-title{font-size:22px;font-weight:700}
+.project-title .num{color:var(--accent);font-size:14px;font-weight:600;display:block;margin-bottom:4px}
+.project-badge{display:inline-flex;gap:8px;flex-wrap:wrap}
+.project-badge span{font-size:11px;padding:4px 12px;border-radius:20px;font-weight:500}
+.badge-ai{background:rgba(108,92,231,.15);color:var(--accent2)}
+.badge-data{background:rgba(0,206,201,.12);color:var(--teal)}
+.badge-fe{background:rgba(253,121,168,.12);color:var(--warm)}
+.badge-py{background:rgba(245,158,11,.15);color:#f59e0b}
+.project-body{padding:28px 36px 32px}
+
+/* Tech tags */
+.tech-stack{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.tech-stack span{font-size:12px;padding:3px 10px;background:var(--bg3);border-radius:6px;color:var(--text2);font-family:'SF Mono','Consolas',monospace}
+
+/* Metric grid */
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
+.metric{border-left:3px solid var(--accent);padding:4px 0 4px 14px}
+.metric .val{font-size:24px;font-weight:700;color:var(--text)}
+.metric .lbl{font-size:12px;color:var(--text3)}
+
+/* Case highlight */
+.case{background:var(--bg3);border-radius:var(--radius);padding:20px;margin:16px 0}
+.case h4{font-size:15px;color:var(--accent2);margin-bottom:8px}
+.case p{font-size:14px;color:var(--text2)}
+.case .result{display:inline-block;margin-top:8px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;background:rgba(0,206,201,.12);color:var(--teal)}
+
+/* Chart container */
+.chart-wrap{background:var(--bg3);border-radius:var(--radius);padding:20px;margin:16px 0}
+.chart-wrap canvas{max-height:300px}
+
+/* Footer */
+.footer{text-align:center;padding:40px 0;color:var(--text3);font-size:13px;border-top:1px solid var(--border);margin-top:40px}
+
+/* Responsive */
+@media(max-width:768px){
+  .hero h1{font-size:36px}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .project-header{padding:24px 20px 16px}
+  .project-body{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Hero -->
+<section class="hero">
+  <h1>龙文凭</h1>
+  <p class="subtitle">AI Agent 架构 · 数据分析 · 全栈工具开发</p>
+  <div class="tags">
+    <span>Multi-Agent 系统</span><span>Python</span><span>JavaScript</span>
+    <span>统计推断</span><span>数据工程</span><span>LLM 应用</span>
+  </div>
+</section>
+
+<!-- Overview Stats -->
+<div class="stats-row">
+  <div class="stat-card"><div class="num">5</div><div class="label">独立项目</div></div>
+  <div class="stat-card"><div class="num">30+</div><div class="label">运营策略报告</div></div>
+  <div class="stat-card"><div class="num">38,600+</div><div class="label">评论数据处理</div></div>
+  <div class="stat-card"><div class="num">2</div><div class="label">游戏产品线覆盖</div></div>
+</div>
+
+<!-- ==================== PROJECT 1 ==================== -->
+<div class="project">
+  <div class="project-header">
+    <div>
+      <div class="project-title"><span class="num">01</span>Multi-Agent 内容运营分析系统</div>
+      <div class="tech-stack" style="margin-top:12px">
+        <span>Multi-Agent 编排</span><span>Python</span><span>Welch t-test</span><span>Cohen's d</span><span>χ²</span><span>MediaCrawler</span><span>QQ通知</span>
+      </div>
+    </div>
+    <div class="project-badge">
+      <span class="badge-ai">AI Agent</span><span class="badge-data">统计推断</span><span class="badge-py">Python</span>
+    </div>
+  </div>
+  <div class="project-body">
+    <p style="color:var(--text2);margin-bottom:16px">
+      设计三 Agent 串联协作架构（数据采集→统计检验→运营策略），搭建全链路自动化分析管线。
+      覆盖<strong style="color:var(--text)">崩坏：星穹铁道 + 原神</strong>双产品线，累计处理 <strong style="color:var(--accent2)">38,600+</strong> 条评论，
+      产出 <strong style="color:var(--accent2)">30+</strong> 份深度运营分析报告，含 16 假设检验体系、H7 核心/单次比 6 类型学框架。
+    </p>
+
+    <div class="metric-grid">
+      <div class="metric"><div class="val">30+</div><div class="lbl">运营报告产出</div></div>
+      <div class="metric"><div class="val">38,600+</div><div class="lbl">评论数据处理</div></div>
+      <div class="metric"><div class="val">16</div><div class="lbl">假设检验体系</div></div>
+      <div class="metric"><div class="val">3&times;</div><div class="lbl">效率提升（15min vs 60min）</div></div>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="agentArch"></canvas>
+    </div>
+
+    <p style="color:var(--text3);font-size:13px;margin-top:8px">
+      三 Agent 架构：数据收集师 (2aaa) → 数据分析师 (cecf) → 运营策划师 (922a)，QClaw 统一调度，全流程无人值守
+    </p>
+
+    <h4 style="color:var(--text);margin:24px 0 12px">代表性运营洞察（选自 30+ 份报告）</h4>
+
+    <div class="case">
+      <h4>&#9670; 案例一：昔涟「你好，世界」— 悲怆浪漫型标杆</h4>
+      <p>H7 核心/单次长度比 <strong>0.64x</strong>（单次用户写更长），76.69 字符均值 <strong>所有 PV 最高</strong>，午间 12:00 峰值覆盖日间蓝海用户。开创"悲怆浪漫型"类型——87.5% 单次用户被情感驱动短暂停留，与刻律德菈的深夜核心粉丝模式形成互补。此案例是"悲怆 &ne; 负面"分析方法论的起源——角色 D 的 13.6% "负面率"经二级校验修正为 4.8%（误判率 65%）。</p>
+      <span class="result">V2.0 &middot; 1,200 条评论 &middot; H7=0.64x 破圈型</span>
+    </div>
+
+    <div class="case">
+      <h4>&#9670; 案例二：白厄「日冕」— 有组织抗议识别</h4>
+      <p>7,302 条评论中识别<strong>有组织抗议</strong>：Top1-3 为同一账号群体（绫波狂粉部 165 条 + 关联账号 108 条 + 97 条），三人占核心用户 15.2%。系统将舆情定性为"版本剧情争议误伤角色"而非角色本身的负面——区分了<strong>角色舆情与版本争议</strong>，避免运营误判。H7=1.46x，核心用户写最长，主导深度质疑。Top5 集中度 7.45%（超 7% 阈值）。</p>
+      <span class="result">V2.0 &middot; 7,302 条评论 &middot; 危机型</span>
+    </div>
+
+    <div class="case">
+      <h4>&#9670; 案例三：火花「痴人说梦」— 社交货币型爆款</h4>
+      <p>H7 核心/单次比 <strong>2.46x</strong> — 所有 PV 中最高。93.9% 单次用户，1.9% 核心用户，但核心用户评论长度 56.93 字符（单次仅 23.15 字符），形成极端两极分化。平均点赞 <strong>382.2</strong> 所有 PV 最高，凌晨 4:00 峰值爆发（25.9% 评论在此时段）。正面率 >95%。系统识别出"弹丸论破"跨圈考据梗——核心粉丝产出高质量二创内容，单次用户以表情包参与传播。</p>
+      <span class="result">V2.0 &middot; 1,300 条评论 &middot; H7=2.46x 社交货币型</span>
+    </div>
+
+    <div class="case">
+      <h4>&#9670; 案例四：奈芙尔「终有一疏」(原神) — 跨游戏验证 + 完整统计推断</h4>
+      <p>同一套方法论框架不加修改应用于原神 PV：5,413 条评论，3,013 名用户。完整 11 假设检验表含 Welch t-test (p<0.001, Cohen's d=0.253-0.314)、Mann-Whitney U (p=0.012, r=0.034) 及 Spearman 相关 (rho=-0.134, p=3.16&times;10<sup>-23</sup>)。关键发现：大样本下统计显著 &ne; 实际有意义——H11 虽 p 极小但效应量极弱 (|r|<0.15)，系统<strong>主动标注"不得解读为因果关系"</strong>。</p>
+      <span class="result">V2.0 跨游戏 &middot; 5,413 条评论 &middot; 核心粉丝型 &middot; 完整 CI + Cohen's d</span>
+    </div>
+
+    <div class="case">
+      <h4>&#9670; 案例五：菲林斯「一枚古币，一双眼睛」(原神) — 去重方法论展示</h4>
+      <p>原始 8,880 条评论按 rpid 去重后 3,900 条（<strong>56% 为重复</strong>），校正后负面率仅 0.53%。92.39% 单次用户，H7=0.89 处于健康区间。系统识别"低卷入高共鸣"传播特征——悲剧内容获 +27.47 额外点赞共鸣，但核心用户仅 0.66%。此案例展示了<strong>去重作为统计推断方法论前提</strong>的重要性——若未去重，重复评论会扭曲情感分布和显著性检验结果。</p>
+      <span class="result">V2.0 跨游戏 &middot; 去重后 3,900 条 &middot; A级低风险</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PROJECT 2 ==================== -->
+<div class="project">
+  <div class="project-header">
+    <div>
+      <div class="project-title"><span class="num">02</span>社交媒体数据分析平台</div>
+      <div class="tech-stack" style="margin-top:12px">
+        <span>HTML/CSS/JS</span><span>Electron</span><span>Node.js CLI</span><span>Python CLI</span><span>Canvas API</span><span>Chart.js</span><span>Stata/SPSS导出</span>
+      </div>
+    </div>
+    <div class="project-badge">
+      <span class="badge-fe">全栈</span><span class="badge-data">统计</span><span class="badge-py">CLI</span>
+    </div>
+  </div>
+  <div class="project-body">
+    <p style="color:var(--text2);margin-bottom:16px">
+      跨平台数据可视化分析工具双版本 —— Web 端 (Electron + Canvas) 与 Python CLI (argparse)，
+      共享同一套分析逻辑。集成描述统计、双变量相关性 (Pearson r)、推断统计 (Welch t / ANOVA / χ²)，
+      CDF 近似实现浏览器端统计推断，一键导出 Stata .do 与 SPSS .sps 脚本。
+    </p>
+
+    <div class="metric-grid">
+      <div class="metric"><div class="val">4</div><div class="lbl">输入格式 (xlsx/xls/csv/docx)</div></div>
+      <div class="metric"><div class="val">4</div><div class="lbl">分析模式</div></div>
+      <div class="metric"><div class="val">1,900+</div><div class="lbl">Python 代码行</div></div>
+      <div class="metric"><div class="val">6,000+</div><div class="lbl">累计处理评论</div></div>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="statsChart"></canvas>
+    </div>
+
+    <h4 style="color:var(--text);margin:20px 0 8px">技术亮点</h4>
+    <p style="color:var(--text2);font-size:14px">
+      &bull; 纯 Canvas 绘制图表，零第三方图表库依赖 &nbsp;
+      &bull; 浏览器端 CDF 近似 p 值计算，无需后端服务器 &nbsp;
+      &bull; 中文时间解析：支持 "2026年4月23日14时" 等非标准格式 &nbsp;
+      &bull; 导出文件自动添加 UTF-8 BOM，Excel 打开无乱码
+    </p>
+  </div>
+</div>
+
+<!-- ==================== PROJECT 3 ==================== -->
+<div class="project">
+  <div class="project-header">
+    <div>
+      <div class="project-title"><span class="num">03</span>经济统计实证分析平台 (EconStatsAnalyzer)</div>
+      <div class="tech-stack" style="margin-top:12px">
+        <span>SheetJS</span><span>jStat</span><span>Chart.js</span><span>纯前端</span><span>描述统计</span><span>t-test</span><span>ANOVA</span><span>χ²</span><span>回归</span>
+      </div>
+    </div>
+    <div class="project-badge">
+      <span class="badge-fe">前端</span><span class="badge-data">统计</span>
+    </div>
+  </div>
+  <div class="project-body">
+    <p style="color:var(--text2);margin-bottom:16px">
+      面向经济学课程的交互式统计分析工具。纯前端实现完整实证分析工作流——上传数据即得描述统计 + 推断检验 + 回归结果，
+      无需安装任何统计软件。支持 t 检验 (独立/配对/单样本)、单因素 ANOVA、Pearson/Spearman 相关、卡方独立性检验、
+      一元线性回归 (OLS)，所有 p 值基于 jStat 精确计算。
+    </p>
+
+    <div class="metric-grid">
+      <div class="metric"><div class="val">7</div><div class="lbl">统计检验方法</div></div>
+      <div class="metric"><div class="val">40+</div><div class="lbl">Excel 公式自动生成</div></div>
+      <div class="metric"><div class="val">100%</div><div class="lbl">纯前端，零后端依赖</div></div>
+      <div class="metric"><div class="val">2.1</div><div class="lbl">当前版本</div></div>
+    </div>
+
+    <p style="color:var(--text2);font-size:14px">
+      &bull; 侧边栏多模块导航 (描述统计 / 假设检验 / 相关分析 / 回归分析 / Excel公式) &nbsp;
+      &bull; 自动生成 Stata .do 与 SPSS .sps 脚本，适配学术场景 &nbsp;
+      &bull; 支持 6 种图表类型 (直方图/箱线图/散点图/残差图/Q-Q图/置信区间图)
+    </p>
+  </div>
+</div>
+
+<!-- ==================== PROJECT 4 ==================== -->
+<div class="project">
+  <div class="project-header">
+    <div>
+      <div class="project-title"><span class="num">04</span>崩铁全角色养成曲线可视化</div>
+      <div class="tech-stack" style="margin-top:12px">
+        <span>ECharts 5</span><span>JavaScript</span><span>CSS 暗色主题</span><span>零部署</span><span>CDN</span><span>全角色</span>
+      </div>
+    </div>
+    <div class="project-badge">
+      <span class="badge-fe">前端</span><span class="badge-data">可视化</span><span class="badge-ai">AI 辅助开发</span>
+    </div>
+  </div>
+  <div class="project-body">
+    <p style="color:var(--text2);margin-bottom:16px">
+      <strong style="color:var(--accent2)">架构设计与产品方向独立完成，代码由 AI（workbuddy）辅助生成。</strong>
+      基于项目一产出的结构化数据（23 个 JSON → 5,900+ 行 Excel），设计并迭代了一款覆盖全角色的养成数据交互可视化工具。
+      单 HTML 文件 + CDN，<strong style="color:var(--accent2)">零部署双击即用</strong>。
+      核心贡献：功能模块设计、图表类型选型、命途配色体系（9 种）、性价比骤降点算法逻辑、多轮代码审查与迭代调优。
+    </p>
+
+    <div class="metric-grid">
+      <div class="metric"><div class="val">5</div><div class="lbl">功能模块</div></div>
+      <div class="metric"><div class="val">5</div><div class="lbl">图表类型</div></div>
+      <div class="metric"><div class="val">全角色</div><div class="lbl">覆盖范围</div></div>
+      <div class="metric"><div class="val">9 种</div><div class="lbl">命途配色体系</div></div>
+    </div>
+
+    <h4 style="color:var(--text);margin:16px 0 8px">五大模块</h4>
+    <p style="color:var(--text2);font-size:14px">
+      &bull; <strong>属性成长曲线</strong>：6 属性切换 + 5 角色同图对比 + 满级雷达图 &nbsp;
+      &bull; <strong>体力投入堆叠图</strong>：材料&rarr;副本&rarr;体力映射链，按副本类型分层着色 &nbsp;
+      &bull; <strong>性价比骤降分析</strong>：双 Y 轴图 + 降幅 > 30% 自动红色标注 + 文字建议 &nbsp;
+      &bull; <strong>速查总览</strong>：卡片网格 + 多条件排序筛选 + 三模式评级角标 &nbsp;
+      &bull; <strong>养成规划器</strong>：多角色材料汇总 + 副本刷取计划 + 合成建议
+    </p>
+
+    <h4 style="color:var(--text);margin:16px 0 8px">技术难点攻克</h4>
+    <p style="color:var(--text2);font-size:14px">
+      &bull; ECharts 动态增删 series 残留 &rarr; setOption {replaceMerge: ['series']} &nbsp;
+      &bull; 折线图 [x,y] 格式无法渲染 &rarr; xAxis type: 'value' (数值轴) &nbsp;
+      &bull; 材料&rarr;体力映射 &rarr; 5 步串联：ID&rarr;中文名&rarr;材料类型&rarr;副本&rarr;掉落率&rarr;期望体力 &nbsp;
+      &bull; XSS 防护 &rarr; escHtml() 统一包裹所有动态内容输出
+    </p>
+  </div>
+</div>
+
+<!-- ==================== PROJECT 5 ==================== -->
+<div class="project">
+  <div class="project-header">
+    <div>
+      <div class="project-title"><span class="num">05</span>游戏数据标准化知识库 + 崩铁 ROI 评估体系</div>
+      <div class="tech-stack" style="margin-top:12px">
+        <span>Python ETL</span><span>openpyxl</span><span>Obsidian MD</span><span>飞书API</span><span>双轴加权ROI</span><span>Prydwen评级</span>
+      </div>
+    </div>
+    <div class="project-badge">
+      <span class="badge-py">数据工程</span><span class="badge-data">ROI模型</span>
+    </div>
+  </div>
+  <div class="project-body">
+    <p style="color:var(--text2);margin-bottom:16px">
+      基于 Python 构建全链路 ETL 管线，将 <strong style="color:var(--accent2)">23 个嵌套 JSON</strong> 源文件转化为
+      <strong style="color:var(--accent2)">21 工作表</strong>结构化 Excel 数据库 (5,900+ 行) 与
+      <strong style="color:var(--accent2)">265 条</strong> Obsidian Markdown 知识库，为下游可视化工具与 AI Agent 提供唯一可信数据源。
+    </p>
+
+    <p style="color:var(--text2);margin-bottom:16px">
+      在此基础上，设计 <strong style="color:var(--accent2)">"命途 &times; 副本" 双轴加权 ROI 评估体系</strong>——
+      废弃传统固定权重公式，为 9 种命途分别配置输出/生存动态权重与 3 副本亲和度矩阵，
+      融合 <strong style="color:var(--accent2)">Prydwen 三模式评级</strong>（混沌回忆/虚构叙事/末日幻影）实现属性评分与实战评级的动态加权。
+    </p>
+
+    <div class="metric-grid">
+      <div class="metric"><div class="val">23</div><div class="lbl">JSON 源文件 (~6.8MB)</div></div>
+      <div class="metric"><div class="val">21</div><div class="lbl">Excel 工作表</div></div>
+      <div class="metric"><div class="val">5,900+</div><div class="lbl">数据库总行数</div></div>
+      <div class="metric"><div class="val">9</div><div class="lbl">命途双轴权重矩阵</div></div>
+    </div>
+
+    <p style="color:var(--text2);font-size:14px">
+      &bull; 材料 ID &rarr; 中文名 &rarr; 副本来源 &rarr; 体力成本完整映射链 &nbsp;
+      &bull; 绿 &rarr; 蓝 &rarr; 紫三级合成链全覆盖 &nbsp;
+      &bull; 59 角色五维度交互式可视化 &nbsp;
+      &bull; 飞书知识库同步，支持 Agent 实时查询
+    </p>
+  </div>
+</div>
+
+<!-- Skills -->
+<section class="section">
+  <div class="section-title">技术能力</div>
+  <div class="section-subtitle">从底层数据到 AI Agent 编排的全链路覆盖</div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+    <div class="case">
+      <h4>AI Agent 架构</h4>
+      <p>Multi-Agent 编排设计 · Prompt Engineering · RAG 知识库构建 · Agent 效果追踪与调优 · System Prompt 迭代</p>
+    </div>
+    <div class="case">
+      <h4>统计推断与数据分析</h4>
+      <p>Welch t-test · Cohen's d · ANOVA · χ² · Bootstrap · Spearman 相关 · 假设检验体系设计 · 效应量计算</p>
+    </div>
+    <div class="case">
+      <h4>Python 工程</h4>
+      <p>Pandas/NumPy/openpyxl · CLI 工具开发 (argparse) · ETL 管线 · 统计脚本 · Matplotlib 可视化</p>
+    </div>
+    <div class="case">
+      <h4>前端与全栈</h4>
+      <p>HTML/CSS/JS · ECharts 5 · Chart.js · Canvas API · Electron · Node.js · 纯前端统计分析</p>
+    </div>
+    <div class="case">
+      <h4>数据工程</h4>
+      <p>JSON/CSV/XLSX 多格式处理 · 嵌套数据递归展开 · 数据清洗策略 · 多源数据整合 · 飞书 API 同步</p>
+    </div>
+    <div class="case">
+      <h4>理论与学术</h4>
+      <p>D-E-A 注意力配置框架 · EDOT 方法论 · 交易成本理论 · 组织注意力基础观 · SWE-bench 受控实验设计</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  龙文凭 &nbsp;·&nbsp; 南京邮电大学 经济学 2024-2028 &nbsp;·&nbsp; xunlu3306@163.com
+</div>
+
+</div>
+
+<script>
+// Agent Architecture Flow Chart
+new Chart(document.getElementById('agentArch'), {
+  type: 'bar',
+  data: {
+    labels: ['数据采集', '统计检验', '情感分析', '假设检验', '跨PV验证', '运营策略', '行动清单', '报告生成'],
+    datasets: [{
+      label: 'Agent 2aaa — 数据收集师',
+      data: [100, 0, 0, 0, 0, 0, 0, 0],
+      backgroundColor: 'rgba(108, 92, 231, 0.7)',
+      borderRadius: 6
+    }, {
+      label: 'Agent cecf — 数据分析师',
+      data: [0, 95, 85, 90, 75, 0, 0, 0],
+      backgroundColor: 'rgba(0, 206, 201, 0.7)',
+      borderRadius: 6
+    }, {
+      label: 'Agent 922a — 运营策划师',
+      data: [0, 0, 0, 0, 0, 90, 85, 95],
+      backgroundColor: 'rgba(253, 121, 168, 0.7)',
+      borderRadius: 6
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#9898B0', font: { size: 11 }, padding: 12 } }
+    },
+    scales: {
+      x: { stacked: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#606078' }, max: 100 },
+      y: { stacked: true, grid: { display: false }, ticks: { color: '#9898B0', font: { size: 12 } } }
+    }
+  }
+});
+
+// Statistical Test Coverage
+new Chart(document.getElementById('statsChart'), {
+  type: 'radar',
+  data: {
+    labels: ['描述统计', 'Welch t检验', 'ANOVA', '卡方检验', 'Pearson r', '效应量 (d)'],
+    datasets: [{
+      label: 'Web 端 (Canvas)',
+      data: [95, 90, 85, 80, 75, 60],
+      borderColor: '#6C5CE7',
+      backgroundColor: 'rgba(108, 92, 231, 0.1)',
+      borderWidth: 2,
+      pointBackgroundColor: '#6C5CE7'
+    }, {
+      label: 'Python CLI',
+      data: [90, 95, 90, 85, 80, 75],
+      borderColor: '#00CEC9',
+      backgroundColor: 'rgba(0, 206, 201, 0.1)',
+      borderWidth: 2,
+      pointBackgroundColor: '#00CEC9'
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { labels: { color: '#9898B0', font: { size: 11 }, padding: 12 } }
+    },
+    scales: {
+      r: {
+        grid: { color: 'rgba(255,255,255,0.08)' },
+        angleLines: { color: 'rgba(255,255,255,0.08)' },
+        pointLabels: { color: '#9898B0', font: { size: 11 } },
+        ticks: { display: false, max: 100, stepSize: 20 },
+        suggestedMin: 0,
+        suggestedMax: 100
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

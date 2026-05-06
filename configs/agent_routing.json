@@ -1,0 +1,63 @@
+{
+  "version": "2.0",
+  "description": "QClaw execution-diagnosis decoupling routing configuration",
+  "routing": {
+    "execution_layer": {
+      "model": "deepseek-v4-flash",
+      "max_tokens_per_call": 4096,
+      "temperature": 0.3,
+      "agents": {
+        "locator": {
+          "role": "D (Decoupling)",
+          "system_prompt": "prompts/locator_v2.md",
+          "max_retries": 1,
+          "timeout_seconds": 120
+        },
+        "fixer": {
+          "role": "E→A (Evaluation → Aggregation)",
+          "system_prompt": "prompts/fixer_v2.md",
+          "max_retries": 2,
+          "timeout_seconds": 180
+        },
+        "reviewer": {
+          "role": "A Verification (Aggregation Verification)",
+          "system_prompt": "prompts/reviewer_v2.md",
+          "max_retries": 2,
+          "timeout_seconds": 120
+        }
+      }
+    },
+    "diagnosis_layer": {
+      "model": "deepseek-v4-pro",
+      "trigger": "batch_completion",
+      "batch_threshold": 12,
+      "max_tokens_per_call": 8192,
+      "temperature": 0.5,
+      "diagnoser": {
+        "role": "External D-E-A Diagnosis",
+        "system_prompt": "prompts/diagnosis_batch.md",
+        "focus_areas": [
+          "E bottleneck identification",
+          "Cross-instance priority distribution",
+          "Abandonment pattern review",
+          "Methodology gap detection"
+        ]
+      }
+    },
+    "self_reflection_buffer": {
+      "enabled": false,
+      "reason": "Experimentally verified net effect = 0. Removed in V2.0."
+    }
+  },
+  "cost_control": {
+    "daily_token_budget": 800,
+    "diagnosis_cost_per_batch": 200,
+    "execution_cost_per_instance": 70,
+    "max_daily_instances": 10
+  },
+  "memory": {
+    "injection_config": "memory_injection.yaml",
+    "kb_max_entries_per_call": 5,
+    "persist_after_each_batch": true
+  }
+}

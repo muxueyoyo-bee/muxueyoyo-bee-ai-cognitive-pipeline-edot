@@ -1,0 +1,23 @@
+round,phase,date,instances,pass_count,pass_rate,d_flags,e_flags,a_flags,e_da_ratio,diagnosis_model,key_finding
+1,V1.0 Baseline,2025-11-02,12,10,0.83,18,20,16,1.11,None,Initial baseline. D flags dominant in old36.
+2,V1.0 Baseline,2025-11-02,12,10,0.83,16,19,15,1.19,None,new36 baseline confirms D-decomposition gap.
+3,V1.5 EDOT Cycle 1,2025-11-03,12,10,0.83,12,22,14,1.57,V4Pro,First external diagnosis. E bottleneck identified: no justification discipline.
+4,V1.5 EDOT Cycle 2,2025-11-03,12,11,0.92,8,20,12,2.00,V4Pro,Locator decomposition rules added. D flags -33%.
+5,V1.5 EDOT Cycle 3,2025-11-03,12,11,0.92,6,21,10,2.63,V4Pro,Fixer priority justification rules added.
+6,V1.5 EDOT Cycle 4,2025-11-04,12,11,0.92,5,22,9,3.14,V4Pro,Reviewer process quality checks added. Begin V2 prompt migration.
+7,V1.5 EDOT Cycle 5,2025-11-04,12,11,0.92,4,25,8,3.57,中途审查,Cross-instance priority inconsistency found.
+8,V1.5 EDOT Cycle 6,2025-11-05,12,11,0.92,4,26,7,4.33,中途审查,Abandonment logic gaps: some sub-problems kept without justification.
+9,V1.5 EDOT Cycle 7,2025-11-05,12,11,0.92,3,27,6,5.40,中途审查,>3 sub-problems rule added: must mark ≥1 ABANDONED.
+10,V1.5 EDOT Cycle 8,2025-11-06,12,11,0.92,3,28,5,7.00,中途审查,E flags begin to dominate. D nearly saturated.
+11,V1.5 EDOT Cycle 9,2025-11-06,12,11,0.92,2,28,4,9.33,中途审查,Methodology gap: no cross-PV validation framework.
+12,V1.5 EDOT Cycle 10,2025-11-07,12,11,0.92,2,30,4,10.00,中途审查,Cross-validation network design begins.
+13,V1.5 EDOT Cycle 11,2025-11-07,12,12,1.00,2,29,4,9.67,中途审查,First 100% PASS. Typology framework draft.
+14,V4Pro Failure,2025-11-08,12,10,0.83,8,24,10,2.40,V4Pro self-iteration,Model upgrade alone fails. Without external diagnosis methodology degrades.
+15,V2.0 Rebuild,2025-11-09,12,11,0.92,3,30,5,6.00,V4Pro batch,Restart from V1.5 KB. Apply all 固化 rules.
+16,V2.0 EDOT Cycle 12,2025-11-10,12,11,0.92,2,30,4,7.50,中途审查,16 hypothesis tests framework operational.
+17,V2.0 EDOT Cycle 13,2025-11-10,12,11,0.92,2,29,4,7.25,中途审查,6 typologies integrated into analysis standard.
+18,V2.0 EDOT Cycle 14,2025-11-11,12,11,0.92,2,29,3,9.67,中途审查,Brand asset cross-PV validation network active.
+19,V2.0 Stable,2025-11-12,13,12,0.92,2,28,3,9.33,中途审查,13 PV completed in 3h17min. Metrics converging.
+20,V2.0 Stable,2025-11-15,12,11,0.92,2,28,3,9.33,None,Plateau begins. 3 consecutive rounds <2pp change.
+21,V2.0 Stable,2025-11-18,12,11,0.92,2,27,3,9.00,None,Diagnosis frequency reduced to every 3 batches.
+22,V2.0 Stable,2025-11-22,12,11,0.92,2,27,3,9.00,None,Steady-state maintenance mode. Genshin cross-game validation initiated.

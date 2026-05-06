@@ -1,0 +1,67 @@
+# 长期记忆注入规范 v2.0
+# 基于 EDOT 方法论：批量诊断 → 人类审核方向 → 写入长期记忆 → 自动调用
+
+memory:
+  storage:
+    type: json_kb
+    path: "../logs/kb_snapshot.json"
+    max_entries: 200
+    prune_policy: recency_weighted  # 保留最近 + 高频引用
+
+  injection:
+    trigger: on_agent_call
+    context_window: 5              # 每次调用注入最近 5 条 KB 条目
+    max_chars_per_entry: 400       # 单条截断长度
+    format: |
+      ## Knowledge Base (accumulated from previous instances)
+      - [{agent}] {key}: {value}
+
+  diagnosis_to_memory:
+    # 批量诊断完成后，将诊断发现转换为长期记忆条目
+    source: batch_diagnosis_output
+    filter:
+      min_confidence: high         # 仅注入"高置信度"诊断发现
+      min_cross_instance_count: 3  # 至少跨 3 个实例出现
+      exclude:
+        - instance_specific        # 排除单实例特化问题
+        - model_hallucination      # 排除疑似模型幻觉
+
+    review:
+      require_human_approval: true # 诊断方向需人类审核
+      human_role: direction_only   # 仅审核方向正确性，不介入内容
+
+    entry_template:
+      agent: System
+      key: "methodology_rule_{id}"
+      value:
+        rule: "<方法论规则描述>"
+        scope: "<适用范围>"
+        source_diagnosis_round: <N>
+        examples: ["<跨实例示例>"]
+
+  # V2.0 已固化规则（从 22 轮诊断中提炼）
+ 固化_rules:
+    - id: MR001
+      rule: "P0 标签必须附带至少一句论证，说明为什么阻塞其他子任务"
+      scope: "所有 E 环节"
+      source_round: 4
+
+    - id: MR002
+      rule: "子问题 >3 时必须标记至少一个 [ABANDONED]，强制注意力选择性配置"
+      scope: "所有 A 环节"
+      source_round: 7
+
+    - id: MR003
+      rule: "跨实例对比时，评估标准必须统一（同一类 bug 不能在不同实例中被评为不同优先级）"
+      scope: "批量诊断"
+      source_round: 11
+
+    - id: MR004
+      rule: "拆解时必须显式枚举独立关注点（逻辑/边界/性能/兼容/文档），每个关注点至少一个子问题"
+      scope: "所有 D 环节"
+      source_round: 3
+
+    - id: MR005
+      rule: "同一优先级不能分配给所有子问题——如果全部相同，重新评估拆解"
+      scope: "所有 E 环节"
+      source_round: 6

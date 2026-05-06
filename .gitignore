@@ -1,0 +1,64 @@
+# API Keys & Secrets
+.env
+*.env
+*_api_key*
+*API_KEY*
+sk-*
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Large data files (>10MB)
+*.zip
+*.tar.gz
+*.7z
+*.mp4
+*.mov
+*.avi
+trajectories/
+trajectory_*.json
+kb_snapshot*.json
+*_trajectories.json
+full_logs/*.json
+full_logs/*.csv
+*.pkl
+*.h5
+
+# Experiment output directories
+**/phase*/
+**/turning_point_results/
+**/turning_point_validation/
+**/separation_experiment/
+**/批量诊断_V4Pro/
+**/clean_turning_point/
+
+# Experiment JSON (except prompt templates)
+experiments/*.json
+!experiments/prompts_v2_for_mimo_review.json
+
+# Images and videos
+*.png
+*.mp4
+*.mov
+
+# PDFs (served via DOI links, not in repo)
+papers/*.pdf
+docs/*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

@@ -1,0 +1,51 @@
+{
+  "version_comparison": "V1.0 → V2.0",
+  "period": "2025-Q4 to 2026-Q1",
+  "system": "QClaw Game Content Analysis Pipeline",
+  "metrics": {
+    "pass_rate": {
+      "v1_baseline": 0.83,
+      "v1_batch_diagnosis": 0.92,
+      "v2_batch_diagnosis": 0.93,
+      "v2_mimo_diagnosis": 0.97,
+      "timing_effect_pp": 9,
+      "model_effect_pp": 5
+    },
+    "e_to_da_ratio": {
+      "v1_baseline": 1.08,
+      "v1_self_reflection": 2.83,
+      "v1_batch_diagnosis": 3.00,
+      "v2_batch_apply": 2.52,
+      "note": "E/(D+A) increase under self-reflection is counterintuitive — system amplifies E relative to D+A"
+    },
+    "d_flag_compression": {
+      "old36_v1_to_v2": -55,
+      "new36_v1_to_v2": -91,
+      "unit": "percent_reduction"
+    },
+    "e_flag_resistance": {
+      "range_across_datasets": [27, 34],
+      "datasets_tested": 5,
+      "note": "E flags constant regardless of prompt version or task complexity"
+    },
+    "diagnosis_efficiency": {
+      "total_rounds": 22,
+      "v1_to_v1_5_hours": 1.5,
+      "v1_5_to_v2_hours": 3.28,
+      "total_methodology_rules_固化": 5
+    }
+  },
+  "experiment_scale": {
+    "total_agent_runs": 408,
+    "total_diagnosis_records": 228,
+    "conditions": 12,
+    "datasets": ["SWE-bench Verified (old36)", "SWE-bench Verified (new36)", "QClaw PV (×13)", "Genshin PV (×3)", "Social media comments (×38,600)"]
+  },
+  "cost": {
+    "business_pipeline": 0,
+    "academic_pipeline": 70,
+    "currency": "CNY",
+    "business_unit": "per_month",
+    "academic_unit": "one_time"
+  }
+}

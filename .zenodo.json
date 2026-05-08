@@ -1,0 +1,22 @@
+{
+  "title": "AI Cognitive Pipeline: D-E-A × EDOT — 诊断与突破 Multi-Agent 系统的自我迭代天花板",
+  "description": "一个面向 AI 运营/开发者的开源工具包：识别、诊断、突破 Multi-Agent 系统的自我迭代天花板。包含完整的 EDOT（外部批量诊断驱动的在职培训）方法论、408 次 Agent 运行 12 条件大横评实验、可复用的路由配置与 Prompt 库。核心发现：E 阶段（评估）的类型转换比 1:3:1 为永久瓶颈；批量诊断优于实时诊断（+9pp）；诊断模型须强于执行模型（Mimo 97% vs V4Pro 92%）。",
+  "creators": [
+    {
+      "name": "暮雪"
+    }
+  ],
+  "keywords": [
+    "Multi-Agent Systems",
+    "AI Agent Evaluation",
+    "Attention Mechanism",
+    "D-E-A Framework",
+    "EDOT Methodology",
+    "LLM Diagnosis",
+    "SWE-bench"
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "language": "zho"
+}

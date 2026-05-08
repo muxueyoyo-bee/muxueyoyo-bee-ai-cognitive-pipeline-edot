@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it using the metadata below."
+title: "AI Cognitive Pipeline: D-E-A × EDOT — 诊断与突破 Multi-Agent 系统的自我迭代天花板"
+authors:
+  - given-names: 暮雪
+    family-names: ""
+    orcid: ""
+repository-code: "https://github.com/muxueyoyo-bee/muxueyoyo-bee-ai-cognitive-pipeline-edot"
+abstract: "一个面向 AI 运营/开发者的开源工具包：识别、诊断、突破 Multi-Agent 系统的自我迭代天花板。包含完整的 EDOT（外部批量诊断驱动的在职培训）方法论、408 次 Agent 运行 12 条件大横评实验、可复用的路由配置与 Prompt 库。"
+keywords:
+  - "Multi-Agent Systems"
+  - "AI Agent Evaluation"
+  - "Attention Mechanism"
+  - "D-E-A Framework"
+  - "EDOT Methodology"
+  - "LLM Diagnosis"
+license: MIT
+date-released: "2026-05-06"

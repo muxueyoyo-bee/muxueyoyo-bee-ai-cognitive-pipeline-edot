@@ -147,4 +147,4 @@ ai-cognitive-pipeline-edot/
 
 ---
 
-© 2026 龙文凭 (Long Wenping) | 南京邮电大学 | 独立架构验证
+© 2026  暮雪 | 独立架构验证

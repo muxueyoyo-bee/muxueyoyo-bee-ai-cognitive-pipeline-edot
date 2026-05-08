@@ -1,5 +1,7 @@
 # AI Cognitive Pipeline: D-E-A × EDOT
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20084212.svg)](https://doi.org/10.5281/zenodo.20084212)
+
 > **你的 Multi-Agent 系统跑着跑着就不进步了？问题不在模型，在你的注意力配置结构。**
 
 一个面向 AI 运营/开发者的开源工具包：识别、诊断、突破 Multi-Agent 系统的"自我迭代天花板"。
